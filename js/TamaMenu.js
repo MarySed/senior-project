@@ -385,19 +385,6 @@ export default class TamaMenu extends Component {
 
     return (
       <ScrollView style={localStyles.scrollview}>
-        {/*
-        <ImageBackground
-          source={require("./res/images/Sprite-0004.gif")}
-          style={
-            {
-              //width: "100%",
-              //height: 300
-            }
-          }
-          //resizeMode="stretch" //this needs to be a different resizeMode, probably "cover" or "contain"
-          resizeMode="contain"
-          // style={[localStyles.fixed, localStyles.containter, { zIndex: -1 }]}
-        > */}
         <View style={localStyles.inner}>
           <Image
             source={require("./res/images/logo.png")}
@@ -441,8 +428,7 @@ export default class TamaMenu extends Component {
             flex: 1,
             marginTop: 80
           }}
-          resizeMode="stretch" //this is also a problem
-          // style={[localStyles.fixed, localStyles.containter, { zIndex: -1 }]}
+          resizeMode="stretch"
         ></ImageBackground>
       </ScrollView>
     );

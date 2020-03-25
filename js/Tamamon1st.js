@@ -182,6 +182,7 @@ export default class HelloWorldSceneAR extends Component {
             }}
           />
         )}
+
         {/*Tamamon Name */}
         <ViroText
           text="Pocchamon"
