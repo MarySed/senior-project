@@ -28,6 +28,8 @@ import { makeNewUser } from "./graphql/mutations";
 import { userData, devices } from "./graphql/queries";
 import clone from "./utils/clone";
 const axios = require("axios");
+import SplashScreen from "react-native-splash-screen";
+import { API_KEY } from "react-native-dotenv";
 
 var sharedProps = {
   apiKey: "API_KEY_HERE"
@@ -51,8 +53,7 @@ export default class ViroSample extends Component {
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps,
-      //deviceID: DeviceInfo.getUniqueId(),
-      deviceID: "sadness50",
+      deviceID: DeviceInfo.getUniqueId(),
       wallet: 0,
       serverData: [],
       loaded: false
@@ -64,11 +65,15 @@ export default class ViroSample extends Component {
   }
 
   componentDidMount() {
+    SplashScreen.hide();
     const initalCall = async () => {
       console.log("calling");
       await axios({
-        url: "https://tamomon.herokuapp.com/v1/graphql",
+        url: "https://tamamon-app.herokuapp.com/v1/graphql",
         method: "post",
+        headers: {
+          "x-hasura-admin-secret": API_KEY
+        },
         data: {
           query: devices()
         }
@@ -93,8 +98,11 @@ export default class ViroSample extends Component {
           input.time = new Date();
 
           axios({
-            url: "https://tamomon.herokuapp.com/v1/graphql",
+            url: "https://tamamon-app.herokuapp.com/v1/graphql",
             method: "post",
+            headers: {
+              "x-hasura-admin-secret": API_KEY
+            },
             data: makeNewUser(input)
           }).then(result => {
             console.log("new row in DB", result);
@@ -106,8 +114,11 @@ export default class ViroSample extends Component {
     const updateCall = async () => {
       console.log("calling again");
       await axios({
-        url: "https://tamomon.herokuapp.com/v1/graphql",
+        url: "https://tamamon-app.herokuapp.com/v1/graphql",
         method: "post",
+        headers: {
+          "x-hasura-admin-secret": API_KEY
+        },
         data: {
           query: userData(this.state.deviceID)
         }

@@ -3,6 +3,7 @@
 This was created during our time as students at Code Chrysalis.
 
 ![Cat](js/res/images/icons/cat-1.png)
+<img src="js/res/PotemonAR.png" width="200px">
 
 Tamamon is an interactive augmented reality game for collecting Tamamon that combines the best of Pokemon Go and Tamagotchi.
 
@@ -10,7 +11,11 @@ Tamamon allows you to interact with your Tamamon by feeding, playing and washing
 
 If you want to buy more Tamamon, head to the store and use your hard earned in-game currency to expand your collection.
 
-## Link to APP store
+## Download it on the App Store:
+
+<a href="https://apps.apple.com/us/app/tamamon-ar/id1503454018" rel="App Store link">
+   <img src="https://user-images.githubusercontent.com/54801345/77502486-5a792b80-6e9e-11ea-89f2-a7e591575ef0.png" width="250" />
+</a>
 
 # Created by:
 
@@ -41,7 +46,38 @@ Daniel Reaney
 
 ## Installation
 
-1. Ensure that Homebrew, Node, and Watchman are installed in your device:
+### 1. Clone the repository and install all dependencies
+
+### 2. Set up the local environment
+
+In the root directory run the following in the terminal:
+
+```
+touch .env
+```
+
+Navigate to and fill the .env file with your API key:
+
+```
+API_KEY = your-API-key
+```
+
+### 3. Open the project in Xcode
+
+Navigate to the /ios subdirectory and run the following code to open the project in Xcode:
+
+```
+cd ios
+open ProjectName.xcworkspace/
+```
+
+### 4. Run the project in Xcode
+
+Run the current build with Cmd + R
+
+## Troubleshooting
+
+### 1. Ensure that Homebrew, Node, and Watchman are installed in your device:
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -49,21 +85,20 @@ brew install node
 brew install watchman
 ```
 
-2. Ensure that the following CLIs are installed in your device:
+### 2. Ensure that the following CLIs are installed in your device:
 
 ```
 npm install -g react-native-cli
 npm install -g react-viro-cli
-npm install -g @aws-amplify/cli
 ```
 
-3. Ensure that Xcode and Ruby are installed in your device.
+### 3. Ensure that Xcode and Ruby are installed in your device.
 
 ```
 brew install ruby
 ```
 
-4. Ensure that CocoaPods is installed in your device.
+### 4. Ensure that CocoaPods is installed in your device.
 
 ```
 gem install cocoapods
@@ -85,21 +120,21 @@ which ruby
 
 Then retry installing CocoaPods.
 
-5. In the root directory of the app, run yarn to install the packages and set up the iOS bundle:
+### 5. In the root directory of the app, run yarn to install the packages and set up the iOS bundle:
 
 ```
 yarn
 ./setup-ide.sh --ios
 ```
 
-6. Modify the Podfile to have the correct ios version and pods.
+### 6. Modify the Podfile in /ios folder to have the correct ios version and pods.
 
 - Change platform to ios 13.1
-- Comment out or delete `use frameworks!` and <br />
+- Comment out or delete `use frameworks!`
 - Replace `pod 'ViroKit', :path => '../node_modules/react-viro/ios/dist/ViroRenderer/'` with <br />
   `pod 'ViroKit_static_lib', :path => '../node_modules/react-viro/ios/dist/ViroRenderer/static_lib'`
 
-7. Navigate to the iOS subdirectory, update the podfiles, and open the app in Xcode:
+### 7. Navigate to the iOS subdirectory, update the podfiles, and open the app in Xcode:
 
 ```
 cd ios
@@ -109,13 +144,9 @@ open <app-name>.xcworkspace
 
 ```
 
-8. To manually link "react-native-device-info"
+### 8. To manually link "react-native-device-info"
 
-Do NOT add pod 'RNDeviceInfo' in the podfile
-
-Instead, we need to link it manually!
-
-In XCode go to the project navigator:
+Do NOT add pod 'RNDeviceInfo' in the podfile. Instead, in Xcode go to the project navigator:
 
 1. Right click Libraries
 
@@ -125,32 +156,47 @@ In XCode go to the project navigator:
 
 4. Add the file `RNDeviceInfo.xcodeproj`
 
-5. In XCode, in the project navigator, select your project.
+5. In XCode, in the project navigator, select your project
 
 6. Add the `libRNDeviceInfo.a` from the deviceinfo project to your project's Build Phases ➜ Link Binary With Libraries
 
-7. Click `.xcodeproj` file you added before in the project navigator and go the Build Settings tab. Make sure All is toggled on (instead of Basic).
+7. Click `.xcodeproj` file you added before in the project navigator and go the Build Settings tab. Make sure All is toggled on (instead of Basic)
 
-8. Look for Header Search Paths and make sure it contains both
+8. Look for Header Search Paths and make sure it contains both:
 
-`$(SRCROOT)/../react-native/React`
+   ```
+   $(SRCROOT)/../react-native/React
 
-and
+   and
 
-`$(SRCROOT)/../../React`
+   $(SRCROOT)/../../React
+   ```
 
-Check that both have been marked as recursive.
+   Check that both have been marked as recursive
 
-9. Clean the build folder, click build and run your project (Cmd+R)
+9. Clean the Build folder (Shift + Cmd + K), click Build and run your project (Cmd+R)
 
-## Resources
+### 9. To manually link "react-native-splash-screen"
+
+Similar to manually linking React Native Device Info, follow the same process but for Splash Screen.
+
+1. Navigate to node_modules/react-native-splash-screen/ios
+   and add `SplashScreen.xcodeproj`
+
+2. In the project navigator add `libSplashScreen.a`
+
+3. Add the following line to the Header Search Path in the Target project:
+   ```
+   $(SRCROOT)/../node_modules/react-native-splash-screen/ios
+   ```
+4. Clean the Build folder (Shift + Cmd + K), click Build and run your project (Cmd+R)
+
+# Resources
 
 1. [Xcode with ViroReact](https://docs.viromedia.com/docs/starting-a-new-viro-project-1) <br/>
 2. [ViroReact Quick Start](https://docs.viromedia.com/docs/quick-start) <br />
 3. [Ruby Installation for Macs](https://stackify.com/install-ruby-on-your-mac-everything-you-need-to-get-going/) <br/>
-
-## For manually linking
-
-1. https://www.npmjs.com/package/react-native-device-info/v/0.9.1
+4. [Manually Linking React Native Device Info](https://www.npmjs.com/package/react-native-device-info/v/0.9.1) <br/>
+5. [Manually Linking React Native Splash Screen](https://github.com/crazycodeboy/react-native-splash-screen)
 
 ![Egg](js/res/egg.png)
